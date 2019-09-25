@@ -8,7 +8,7 @@
 ##### For live video
 `python skin_segmentation.py`
 ##### For video file
-`python skin_segmentation.py --video <video_file_name>`
+`python skin_segmentation.py --video <video_file_path>`
 
 ## Result
 ![](images/two_people.png)
