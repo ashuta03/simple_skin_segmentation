@@ -21,10 +21,11 @@ def hsv_filter(im):
     lower_limit = np.array([0, 35], np.uint8)
     upper_limit = np.array([30, 255], np.uint8)
 
-    blurred = cv2.GaussianBlur(im, (17, 17), 2)
+    blurred = cv2.GaussianBlur(im, (17, 17), 3)
 
     hsv_image = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
     in_range = cv2.inRange(hsv_image[:, :, 0:2], lower_limit, upper_limit)
+    in_range = cv2.GaussianBlur(in_range, (3, 3), 2)
 
     kernel_1 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11))
     opened_mask = cv2.morphologyEx(in_range, cv2.MORPH_OPEN, kernel_1)
