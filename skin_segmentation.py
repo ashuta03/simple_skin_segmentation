@@ -82,9 +82,9 @@ def video_display(video_file):
             print(e)
             continue
 
-        except BaseException as e:
-            print(e)
-            break
+        except TypeError as e:
+            print("You don't have a connected camera device.")
+            sys.exit(0)
 
     camera.release()
     cv2.destroyAllWindows()
@@ -92,7 +92,7 @@ def video_display(video_file):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='HSV skin segmentation')
-    parser.add_argument('--video', '-t', default='live', type=str, help='json config file path')
+    parser.add_argument('--video', '-t', default='live', type=str, help='enter "live" to capture real time video or "rec" to use a recording')
 
     args = parser.parse_args()
 
@@ -101,9 +101,12 @@ if __name__ == '__main__':
     if video == 'live':
         video = 0
 
-    else:
+    elif video == 'rec':
         if not os.path.isfile(video) or os.path.splitext(video)[1] not in ['.avi', '.mp4']:
             print('Not a video file')
             sys.exit(0)
+    else:
+        print('Invalid argument.')
+        exit(0)
 
     video_display(video)
